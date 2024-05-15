@@ -1,0 +1,82 @@
+package com.luminar.getmed.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "medicine")
+public class GetMedMedicine {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long med_id;
+
+	private String med_name;
+	private String description;
+	private String usage;
+	private double price;
+	private String imageUrl;
+
+	public GetMedMedicine() {
+	}
+
+	public GetMedMedicine(String name, String description, String usage, double price, String imageUrl) {
+		this.med_name = name;
+		this.description = description;
+		this.usage = usage;
+		this.price = price;
+		this.imageUrl = imageUrl;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return med_name;
+	}
+
+	public void setName(String name) {
+		this.med_name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getUsage() {
+		return usage;
+	}
+
+	public void setUsage(String usage) {
+		this.usage = usage;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+}

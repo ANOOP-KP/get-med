@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Medicine Listing</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Medicine Listing</h1>
+        <table class="medicine-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Usage</th>
+                    <th>Price</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="medicine : ${medicines}">
+                    <td th:text="${medicine.id}"></td>
+                    <td th:text="${medicine.name}"></td>
+                    <td th:text="${medicine.description}"></td>
+                    <td th:text="${medicine.usage}"></td>
+                    <td th:text="${medicine.price}"></td>
+                    <td><img th:src="@{'/images/medicine/' + ${medicine.name} + '.jpg'}" alt="Medicine Image"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

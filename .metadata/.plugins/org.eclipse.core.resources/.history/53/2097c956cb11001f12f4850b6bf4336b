@@ -1,0 +1,63 @@
+package com.luminar.getmed.controller;
+
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.getmed.getmedbackend.service.UserService;
+
+@RestController
+@RequestMapping("/api/users")
+public class GetMedUserController {
+
+    @Autowired
+    private UserService userService;
+
+    @PostMapping("/register")
+    public ResponseEntity<String> registerUser(@RequestBody User user) {
+        userService.save(user);
+        return new ResponseEntity<>("User registered successfully", HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        User user = userService.findById(id);
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody User user) {
+        User existingUser = userService.findById(id);
+        if (existingUser == null) {
+            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+        }
+        user.setUserId(id);
+        userService.save(user);
+        return new ResponseEntity<>("User updated successfully", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+        User existingUser = userService.findById(id);
+        if (existingUser == null) {
+            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+        }
+        userService.deleteById(id);
+        return new ResponseEntity<>("User deleted successfully", HttpStatus.OK);
+    }
+
+    // Other CRUD endpoints for user management
+}

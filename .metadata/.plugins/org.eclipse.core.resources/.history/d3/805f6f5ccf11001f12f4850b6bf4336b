@@ -1,0 +1,39 @@
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import com.luminar.getmed.service.UserService;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/users")
+public class GetMedUserController<User> {
+
+    @Autowired
+    private UserService userService;
+
+    @PostMapping("/create")
+    public User createUser(@RequestBody User user) {
+        return UserService.createUser(user);
+    }
+
+    @GetMapping("/all")
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable("id") Long id) {
+        return userService.getUserById(id);
+    }
+
+    @PutMapping("/update/{id}")
+    public User updateUser(@PathVariable("id") Long id, @RequestBody User user) {
+        return userService.updateUser(id, user);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteUser(@PathVariable("id") Long id) {
+        userService.deleteUser(id);
+    }
+}
